@@ -1,0 +1,12 @@
+opencv-python
+pyyaml
+json_tricks
+yacs
+scikit-learn
+tensorwatch
+tensorboardX
+pandas
+ptflops==0.6.8
+timm==0.3.2 --no-deps
+numpy==1.19.3
+einops
