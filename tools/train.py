@@ -198,10 +198,10 @@ def main():
         model, args.distributed, final_output_dir, 'final_state.pth'
     )
 
-    if config.SWA.ENABLED and comm.is_main_process():
-        save_model_on_master(
-             args.distributed, final_output_dir, 'swa_state.pth'
-        )
+    # if config.SWA.ENABLED and comm.is_main_process():
+    #     save_model_on_master(
+    #          args.distributed, final_output_dir, 'swa_state.pth'
+    #     )
 
     writer_dict['writer'].close()
     logging.info('=> finish training')
