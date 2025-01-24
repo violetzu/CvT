@@ -669,16 +669,19 @@ def get_cls_model(config, **kwargs):
             config.MODEL.PRETRAINED_LAYERS,
             config.VERBOSE
         )
-
+    '''
     # 註冊 Hook 到每個階段
     for stage_idx in range(msvit.num_stages):
         stage = getattr(msvit, f'stage{stage_idx}')
 
+        # 對每個階段註冊 Hook
+        stage.register_forward_hook(feature_hook)
+
         # 1. 對卷積嵌入部分註冊 Hook
-        stage.patch_embed.register_forward_hook(feature_hook)
+        # stage.patch_embed.register_forward_hook(feature_hook)
 
         # 2. 對每個 Transformer Block 註冊 Hook
         for block_idx, block in enumerate(stage.blocks):
             block.register_forward_hook(feature_hook)
-
+    '''
     return msvit

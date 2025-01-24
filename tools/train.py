@@ -13,6 +13,8 @@ import torch.nn.parallel
 import torch.optim
 from torch.utils.collect_env import get_pretty_env_info
 from tensorboardX import SummaryWriter
+from torchinfo import summary #
+
 
 import _init_paths
 from config import config
@@ -80,6 +82,7 @@ def main():
 
     model = build_model(config)
     model.to(torch.device('cuda'))
+    summary(model, input_size=(64, 3, 224, 224)) #
 
     # copy model file
     summary_model_on_master(model, config, final_output_dir, True)
