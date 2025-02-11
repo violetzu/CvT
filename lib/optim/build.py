@@ -17,7 +17,7 @@ def _is_depthwise(m):
 
 
 def set_wd(cfg, model):
-    without_decay_list = cfg.TRAIN.WITHOUT_WD_LIST
+    without_decay_list = cfg.TRAIN.WITHOUT_WD_LIST if cfg.TRAIN.WITHOUT_WD_LIST is not None else ['bn', 'bias', 'ln'] #
     without_decay_depthwise = []
     without_decay_norm = []
     for m in model.modules():
