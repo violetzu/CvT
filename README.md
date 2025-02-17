@@ -5,7 +5,67 @@
 
 模型則修改為將每個維度分別進行原本的CvT流程後再透過MergeAttention使用注意力機制進行融合。
 
-為了進行相應的數據讀取也修改了相應的[檔案](./lib/dataset/build.py) ，當 DATASET.DATASET 為'multidim_imagenet' 時便使用修改的多圖讀取的方法；為原來的'imagenet'時則使用完來的方法
+為了進行相應的數據讀取也修改了相應的[檔案](./lib/dataset/build.py) ，
+當 DATASET.DATASET 為'multidim_imagenet' 時便使用修改的多圖讀取的方法；為原來的'imagenet'時則使用完來的方法
+
+檔案資料夾架構也由原先每個class裡直接放圖片，修改成每個class下有不同的dim，每個 dim 內部包含多張圖片 (0.jpg ~ n.jpg)
+``` sh
+|-DATASET
+  |-imagenet
+    |-train
+    | |-class1
+    | | |-img1.jpg
+    | | |-img2.jpg
+    | | |-...
+    | |-class2
+    | | |-img3.jpg
+    | | |-...
+    | |-class3
+    | | |-img4.jpg
+    | | |-...
+    | |-...
+    |-val
+      |-class1
+      | |-img5.jpg
+      | |-...
+      |-class2
+      | |-img6.jpg
+      | |-...
+      |-class3
+      | |-img7.jpg
+      | |-...
+      |-...
+```
+
+改為
+``` sh
+DATASET/agmel/
+├── train
+│    ├── class1
+│    │    └── dim1
+│    │        ├── 0.jpg
+│    │        ├── 1.jpg
+│    │        ├── ...
+│    │        ├── n.jpg
+│    │    └── dim2
+│    │        ├── 0.jpg
+│    │        ├── 1.jpg
+│    │        ├── ...
+│    │        ├── n.jpg
+│    │    └── dim3, dim4, ..., dim6
+│    ├── class2
+│    │    └── dim1, dim2, ..., dim6
+│    └── ...
+└── val
+     ├── class1
+     │    └── dim1, dim2, ..., dim6
+     └── class2
+          └── dim1, dim2, ..., dim6
+```
+
+
+
+
 
 # 環境架設及使用
 ## conda
