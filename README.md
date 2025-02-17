@@ -1,3 +1,4 @@
+# 環境架設及使用
 ## conda
 minaconda 安裝  https://docs.anaconda.com/miniconda/install/#quick-command-line-install
 ```sh
@@ -39,16 +40,16 @@ Options:
   -p|--port <9000> - master port
   -i|--install-deps - If install dependencies (default: False)
 ```
-訓練腳本
+訓練腳本使用範例
 ```sh
 bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml
 ```
-測試腳本
+測試腳本使用範例
 ```sh
 export PRETRAINED_MODEL_FILE=/home/st424/CvT/OUTPUT/imagenet/cvt-13-224x224/model_best.pth
 bash run.sh -t test --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml TEST.MODEL_FILE ${PRETRAINED_MODLE_FILE}
 ```
-or
+等價
 ```sh
 bash run.sh -t test --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml TEST.MODEL_FILE /home/st424/CvT/OUTPUT/imagenet/cvt-13-224x224/model_best.pth
 ```
@@ -110,12 +111,11 @@ source ~/.bashrc
 
 
 
-## markdown preview快捷鍵
+## 筆記指令 for me
+markdown preview快捷鍵
 ctrl-shift-v
 
-
-
-## 使用 pipreqs生成實際用到的 requirements.txt
+使用 pipreqs生成實際用到的 requirements.txt
 
 假设你的项目目录是 my_project，运行以下命令：
 这将在项目目录下生成一个只包含实际导入包的 requirements.txt。
@@ -129,3 +129,4 @@ pip install jupyter pipreqs
 ```sh
 jupyter nbconvert --to script your_notebook.ipynb
 ```
+# 為了多圖輸入所做的修改
