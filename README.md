@@ -1,3 +1,12 @@
+# 為了多圖輸入所做的修改
+[cls_cvt.py](./lib/models/cls_cvt.py) 修改了模型架構，
+
+將原先的輸入維度[B, 3, H, W] 改為 [B, D, 3, H, W] ，其中D為維度以用作多圖輸入。
+
+模型則修改為將每個維度分別進行原本的CvT流程後再透過MergeAttention使用注意力機制進行融合。
+
+為了進行相應的數據讀取也修改了相應的[檔案](./lib/dataset/build.py) ，當 DATASET.DATASET 為'multidim_imagenet' 時便使用修改的多圖讀取的方法；為原來的'imagenet'時則使用完來的方法
+
 # 環境架設及使用
 ## conda
 minaconda 安裝  https://docs.anaconda.com/miniconda/install/#quick-command-line-install
@@ -133,14 +142,7 @@ pip install jupyter pipreqs
 ```sh
 jupyter nbconvert --to script your_notebook.ipynb
 ```
-# 為了多圖輸入所做的修改
-[cls_cvt.py](./lib/models/cls_cvt.py) 修改了模型架構，
 
-將原先的輸入維度[B, 3, H, W] 改為 [B, D, 3, H, W] ，其中D為維度以用作多圖輸入。
-
-模型則修改為將每個維度分別進行原本的CvT流程後再透過MergeAttention使用注意力機制進行融合。
-
-為了進行相應的數據讀取也修改了相應的[檔案](./lib/dataset/build.py) ，當 DATASET.DATASET 為'multidim_imagenet' 時便使用修改的多圖讀取的方法；為原來的'imagenet'時則使用完來的方法
 
 
 
