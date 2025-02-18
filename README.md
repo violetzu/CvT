@@ -24,11 +24,9 @@
 此版本的 CvT 主要新增 多視圖特徵融合 `MergeAttention`，與原本 CvT 的 VisionTransformer `VisionTransformer` 結合。
 
 ### (1) 原有的VisionTransformer `VisionTransformer`
-採用 卷積嵌入 `ConvEmbed` 來取代標準 ViT 的 Patch Embedding，保留局部空間資訊。
-
-透過 多層 Transformer Block `Block` 提取深度特徵，每個 Block 內部包含 自注意力 `Attention` 與 MLP `Mlp`。
-
-透過 `cls_token` 或 `avg_pooling` 提取全局特徵。
+-採用 卷積嵌入 `ConvEmbed` 來取代標準 ViT 的 Patch Embedding，保留局部空間資訊。
+-透過 多層 Transformer Block `Block` 提取深度特徵，每個 Block 內部包含 自注意力 `Attention` 與 MLP `Mlp`。
+-透過 `cls_token` 或 `avg_pooling` 提取全局特徵。
 
 ### (2) 新增部分：多視圖特徵融合 `MergeAttention`
 
@@ -51,20 +49,19 @@
 >總結
 >多頭自注意力 幫助學習來自不同視角的特徵關聯。
 >殘差連接與 LayerNorm 穩定訓練並保留關鍵資訊。
->平均池化降維 提取整體影像的全局特徵。
->MergeAttention 的關鍵步驟是 將 [B, 6, D] 轉換為 ****************``，這裡使用平均池化接對 6 視角的徵取平均
+>平均池化降維 提取整體影像的全局特徵。[B, 6, D]=[B, D]
 
 ### (3) 多圖融合 Convolutional Vision Transformer `ConvolutionalVisionTransformer`
 
-整合 `VisionTransformer` 和 `MergeAttention`，使其支援 6 張圖像輸入。
+- 整合 `VisionTransformer` 和 `MergeAttention`，使其支援 6 張圖像輸入。
 
-前向傳播 `forward` 流程：
+- 前向傳播 `forward` 流程：
 
-將 6 張影像 各自送入 VisionTransformer，獲得 6 個特徵向量 [B, D]。
+    1. 將 6 張影像 各自送入 VisionTransformer，獲得 6 個特徵向量 [B, D]。
 
-透過 MergeAttention，將 [B, 6, D] 轉換為 [B, D]，獲得全局特徵。
+    2. 透過 MergeAttention，將 [B, 6, D] 轉換為 [B, D]，獲得全局特徵。
 
-最終透過線性分類器 `self.head` 進行分類。
+    3. 最終透過線性分類器 `self.head` 進行分類。
 
 >主要新增模組解析
 >
