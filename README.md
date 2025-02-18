@@ -10,13 +10,80 @@
 
 ![messageImage_1739284765004](https://github.com/user-attachments/assets/517c8904-2ceb-44de-8b23-6f0c07409c9a)
 
-# 為了多圖輸入所做的修改
-[cls_cvt.py](./lib/models/cls_cvt.py) 修改了模型架構，
+# 多視圖融合 CvT
+>多圖融合 Convolutional Vision Transformer (CvT) 是在原始 CvT 基礎上，透過 MergeAttention 模組進一步支援 多視圖 (multi-view) 圖像輸入，使其能夠同時處理 6 張影像，並透過注意力機制進行特徵融合，最終進行分類。
+## 原先的CvT
+![](figures/pipeline.svg)
+## 修改後的多視圖CvT
+![](figures/multi-CvT.svg)
+## 模型架構
+[主要修改為cls_cvt.py](./lib/models/cls_cvt.py) 
 
 將原先的輸入維度[B, 3, H, W] 改為 [B, D, 3, H, W] ，其中D為維度以用作多圖輸入。
 
-模型則修改為將每個維度分別進行原本的CvT流程後再透過MergeAttention使用注意力機制進行融合。
+此版本的 CvT 主要新增 多視圖特徵融合 `MergeAttention`，與原本 CvT 的 VisionTransformer `VisionTransformer` 結合。
 
+### (1) 原有的VisionTransformer `VisionTransformer`
+採用 卷積嵌入 `ConvEmbed` 來取代標準 ViT 的 Patch Embedding，保留局部空間資訊。
+
+透過 多層 Transformer Block `Block` 提取深度特徵，每個 Block 內部包含 自注意力 `Attention` 與 MLP `Mlp`。
+
+透過 `cls_token` 或 `avg_pooling` 提取全局特徵。
+
+### (2) 新增部分：多視圖特徵融合 `MergeAttention`
+
+多視圖特徵融合 `MergeAttention` 的核心目標是將來自多張不同視角的影像特徵 進行整合，獲取更具全局性的影像表示。其關鍵作法如下：
+
+- 多頭自注意力 `Multihead Self-Attention`
+  - 透過 `nn.MultiheadAttention` 計算 不同視角間的注意力權重。
+  - 讓來自不同視角的特徵可以互相參考，學習它們之間的關聯性。
+  - 設定 embed_dim 作為特徵維度，num_heads 決定注意力頭的數量，以提升模型的特徵學習能力。
+
+- 殘差連接 (Residual Connection) 與 LayerNorm
+  - 殘差連接：將 MultiheadAttention 的輸出 (attn_out) 與輸入 x 相加 (x = x + attn_out)，以保留原始特徵資訊。
+  -LayerNorm：對殘差輸出進行標準化 (self.norm(x))，穩定訓練過程，減少梯度消失或梯度爆炸的風險。
+
+- 特徵聚合 (Feature Aggregation) - 平均池化 (Mean Pooling) 降維
+  - 關鍵步驟：將 [B, 6, D] 轉換為 [B, D]
+  - 其中 6 代表 6 個不同視角的特徵。
+  - 透過 平均池化 (Mean Pooling) (x.mean(dim=1))，對 6 個視角的特徵進行平均，得到融合後的全局影像表示 [B, D]。
+
+>總結
+>多頭自注意力 幫助學習來自不同視角的特徵關聯。
+>殘差連接與 LayerNorm 穩定訓練並保留關鍵資訊。
+>平均池化降維 提取整體影像的全局特徵。
+>MergeAttention 的關鍵步驟是 將 [B, 6, D] 轉換為 ****************``，這裡使用平均池化接對 6 視角的徵取平均
+
+### (3) 多圖融合 Convolutional Vision Transformer `ConvolutionalVisionTransformer`
+
+整合 `VisionTransformer` 和 `MergeAttention`，使其支援 6 張圖像輸入。
+
+前向傳播 `forward` 流程：
+
+將 6 張影像 各自送入 VisionTransformer，獲得 6 個特徵向量 [B, D]。
+
+透過 MergeAttention，將 [B, 6, D] 轉換為 [B, D]，獲得全局特徵。
+
+最終透過線性分類器 `self.head` 進行分類。
+
+>主要新增模組解析
+>
+>`MergeAttention`將 6 張圖的特徵 [B, 6, D] 合併為 [B, D]。
+>核心技術：多頭自注意力 `MultiheadAttention`。
+>
+>透過 自注意力機制，學習來自不同視角影像的特徵關聯性。
+>
+>透過殘差連接與正規化 `LayerNorm` 確保穩定性。
+>
+>最終透過 mean(dim=1) 平均池化聚合視角特徵，形成最終輸出。
+>
+>修改後的 Convolutional Vision Transformer `ConvolutionalVisionTransformer`
+>
+>讓 VisionTransformer 支援 多視圖輸入。
+>
+>透過 MergeAttention 融合 6 張影像的特徵，再進行分類。
+
+# 讀取檔案及訓練資料集架構
 為了進行相應的數據讀取也修改了相應的[檔案](./lib/dataset/build.py) ，
 當 DATASET.DATASET 為'multidim_imagenet' 時便使用修改的多圖讀取的方法；為原來的'imagenet'時則使用完來的方法
 
