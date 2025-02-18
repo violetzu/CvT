@@ -128,18 +128,20 @@ Options:
 ```sh
 bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml
 bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-dim6-310x321.yaml
+```
+tensorboard
+```sh
 tensorboard --logdir=<包含這個檔案的資料夾>
-
+==
 tensorboard --logdir=OUTPUT/multidim_imagenet/cvt-dim6-310x321
 ```
 測試腳本使用範例
 ```sh
 export PRETRAINED_MODEL_FILE=/home/st424/CvT/OUTPUT/imagenet/cvt-13-224x224/model_best.pth
 bash run.sh -t test --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml TEST.MODEL_FILE ${PRETRAINED_MODLE_FILE}
-```
-等價
-```sh
+==
 bash run.sh -t test --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml TEST.MODEL_FILE /home/st424/CvT/OUTPUT/imagenet/cvt-13-224x224/model_best.pth
+
 ```
 
 ## Ubuntu20.04 gcc版本不足
