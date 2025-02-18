@@ -63,11 +63,14 @@ DATASET/agmel/
           └── dim1, dim2, ..., dim6
 ```
 
+[梅爾頻譜相關文件可以從這裡生成](./舉重/dataagmel.py) 
 
+主要是把每個舉重動作分段再插植後再生成梅爾頻譜
 
 
 
 # 環境架設及使用
+## 整體環境是使用WSL Ubuntu20.04/ miniconda/ Torch 1.7.1 + CUDA11/
 ## conda
 minaconda 安裝  https://docs.anaconda.com/miniconda/install/#quick-command-line-install
 ```sh
@@ -154,7 +157,7 @@ python3 -c "import torch; print(torch.cuda.is_available())"
 ```
 
 
-##　CUDA 11.0 for Ubuntu20.04
+## CUDA 11.0 for Ubuntu20.04
 https://developer.nvidia.com/cuda-11.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=2004&target_type=deblocal
 ```sh
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
