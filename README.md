@@ -24,9 +24,9 @@
 此版本的 CvT 主要新增 多視圖特徵融合 `MergeAttention`，與原本 CvT 的 VisionTransformer `VisionTransformer` 結合。
 
 ### (1) 原有的VisionTransformer `VisionTransformer`
--採用 卷積嵌入 `ConvEmbed` 來取代標準 ViT 的 Patch Embedding，保留局部空間資訊。
--透過 多層 Transformer Block `Block` 提取深度特徵，每個 Block 內部包含 自注意力 `Attention` 與 MLP `Mlp`。
--透過 `cls_token` 或 `avg_pooling` 提取全局特徵。
+- 採用 卷積嵌入 `ConvEmbed` 來取代標準 ViT 的 Patch Embedding，保留局部空間資訊。
+- 透過 多層 Transformer Block `Block` 提取深度特徵，每個 Block 內部包含 自注意力 `Attention` 與 MLP `Mlp`。
+- 透過 `cls_token` 或 `avg_pooling` 提取全局特徵。
 
 ### (2) 新增部分：多視圖特徵融合 `MergeAttention`
 
