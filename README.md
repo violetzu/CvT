@@ -1,3 +1,15 @@
+# 訓練結果
+將彎舉及側平舉數據轉為Mel頻譜後輸入我們的多圖CvT模型進行訓練
+
+10個epoch下最終準確率達到100%；
+使用RTX2070花費2.2小時
+
+[tensorboard記錄檔](./OUTPUT/multidim_imagenet/cvt-dim6-310x321/events.out.tfevents.1739264799.DESKTOP-9T3F3EH)
+
+[log記錄檔(包含參數設定、模型架構、訓練過程](./OUTPUT/multidim_imagenet/cvt-dim6-310x321/train_2025-02-11-17-05_rank0.txt)
+
+![messageImage_1739284765004](https://github.com/user-attachments/assets/517c8904-2ceb-44de-8b23-6f0c07409c9a)
+
 # 為了多圖輸入所做的修改
 [cls_cvt.py](./lib/models/cls_cvt.py) 修改了模型架構，
 
