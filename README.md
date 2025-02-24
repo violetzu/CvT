@@ -191,7 +191,7 @@ Options:
 訓練腳本使用範例
 ```sh
 bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-13-224x224.yaml
-bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-dim6-310x321.yaml
+bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-ag-dim6.yaml
 bash run.sh -g 1 -t train --cfg experiments/imagenet/cvt/cvt-iq-dim2.yaml
 
 ```
@@ -199,7 +199,8 @@ tensorboard
 ```sh
 tensorboard --logdir=<包含這個檔案的資料夾>
 ==
-tensorboard --logdir=OUTPUT/multidim_imagenet/cvt-dim6-310x321
+tensorboard --logdir=OUTPUT/multidim_imagenet/cvt-ag-dim6
+tensorboard --logdir=OUTPUT/multidim_imagenet/cvt-iq-dim2
 ```
 測試腳本使用範例
 ```sh
