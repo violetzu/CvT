@@ -1,0 +1,1258 @@
+2025-02-23 16:27:00,063:[P:13589]:Rank[0/1] => collecting env info (might take some time)
+2025-02-23 16:27:05,067:[P:13589]:Rank[0/1] 
+PyTorch version: 1.7.1+cu110
+Is debug build: False
+CUDA used to build PyTorch: 11.0
+ROCM used to build PyTorch: N/A
+
+OS: Ubuntu 20.04.6 LTS (x86_64)
+GCC version: (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Clang version: Could not collect
+CMake version: Could not collect
+
+Python version: 3.9 (64-bit runtime)
+Is CUDA available: True
+CUDA runtime version: Could not collect
+GPU models and configuration: GPU 0: NVIDIA GeForce RTX 2070
+Nvidia driver version: 560.94
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+
+Versions of relevant libraries:
+[pip3] numpy==1.25.2
+[pip3] torch==1.7.1+cu110
+[pip3] torchinfo==1.8.0
+[pip3] torchsummary==1.5.1
+[pip3] torchvision==0.8.2+cu110
+[conda] blas                      1.0                         mkl  
+[conda] cpuonly                   2.0                           0    pytorch
+[conda] mkl                       2020.2                      256  
+[conda] mkl-service               2.3.0            py39he8ac12f_0  
+[conda] mkl_fft                   1.3.0            py39h54f3939_0  
+[conda] mkl_random                1.0.2            py39h63df603_0  
+[conda] numpy                     1.25.2                   pypi_0    pypi
+[conda] pytorch-mutex             1.0                         cpu    pytorch
+[conda] torch                     1.7.1+cu110              pypi_0    pypi
+[conda] torchinfo                 1.8.0                    pypi_0    pypi
+[conda] torchsummary              1.5.1                    pypi_0    pypi
+[conda] torchvision               0.8.2+cu110              pypi_0    pypi
+2025-02-23 16:27:05,067:[P:13589]:Rank[0/1] Namespace(cfg='experiments/imagenet/cvt/cvt-iq-dim2.yaml', local_rank=0, port=9000, opts=[], num_gpus=1, distributed=False)
+2025-02-23 16:27:05,067:[P:13589]:Rank[0/1] AMP:
+  ENABLED: True
+  MEMORY_FORMAT: nchw
+AUG:
+  COLOR_JITTER: [0.4, 0.4, 0.4, 0.1, 0.0]
+  DROPBLOCK_BLOCK_SIZE: 7
+  DROPBLOCK_KEEP_PROB: 1.0
+  DROPBLOCK_LAYERS: [3, 4]
+  GAUSSIAN_BLUR: 0.0
+  GRAY_SCALE: 0.0
+  INTERPOLATION: 2
+  MIXCUT: 1.0
+  MIXCUT_AND_MIXUP: False
+  MIXCUT_MINMAX: []
+  MIXUP: 0.8
+  MIXUP_MODE: batch
+  MIXUP_PROB: 1.0
+  MIXUP_SWITCH_PROB: 0.5
+  RATIO: (0.75, 1.3333333333333333)
+  SCALE: (0.08, 1.0)
+  TIMM_AUG:
+    AUTO_AUGMENT: rand-m9-mstd0.5-inc1
+    COLOR_JITTER: 0.4
+    HFLIP: 0.5
+    INTERPOLATION: bicubic
+    RE_COUNT: 1
+    RE_MODE: pixel
+    RE_PROB: 0.25
+    RE_SPLIT: False
+    USE_LOADER: False
+    USE_TRANSFORM: False
+    VFLIP: 0.0
+BASE: ['']
+CUDNN:
+  BENCHMARK: True
+  DETERMINISTIC: False
+  ENABLED: True
+DATASET:
+  DATASET: multidim_imagenet
+  DATA_FORMAT: jpg
+  LABELMAP: 
+  NUM_DIMS: 2
+  ROOT: DATASET/iqmel/
+  SAMPLER: default
+  TARGET_SIZE: -1
+  TEST_SET: val
+  TEST_TSV_LIST: []
+  TRAIN_SET: train
+  TRAIN_TSV_LIST: []
+DATA_DIR: 
+DEBUG:
+  DEBUG: False
+DIST_BACKEND: nccl
+FINETUNE:
+  BASE_LR: 0.003
+  BATCH_SIZE: 512
+  EVAL_EVERY: 3000
+  FINETUNE: False
+  FROZEN_LAYERS: []
+  LR_SCHEDULER:
+    DECAY_TYPE: step
+  TRAIN_MODE: True
+  USE_TRAIN_AUG: False
+GPUS: (0,)
+INPUT:
+  MEAN: [0.485, 0.456, 0.406]
+  STD: [0.229, 0.224, 0.225]
+LOSS:
+  LABEL_SMOOTHING: 0.1
+  LOSS: softmax
+MODEL:
+  INIT_WEIGHTS: True
+  NAME: cls_cvt
+  NUM_CLASSES: 1000
+  PRETRAINED: 
+  PRETRAINED_LAYERS: ['*']
+  SPEC:
+    ATTN_DROP_RATE: [0.0, 0.0, 0.0]
+    CLS_TOKEN: [False, False, True]
+    DEPTH: [1, 2, 10]
+    DIM_EMBED: [64, 192, 384]
+    DROP_PATH_RATE: [0.0, 0.0, 0.1]
+    DROP_RATE: [0.0, 0.0, 0.0]
+    INIT: trunc_norm
+    KERNEL_QKV: [3, 3, 3]
+    MLP_RATIO: [4.0, 4.0, 4.0]
+    NUM_HEADS: [1, 3, 6]
+    NUM_STAGES: 3
+    PADDING_KV: [1, 1, 1]
+    PADDING_Q: [1, 1, 1]
+    PATCH_PADDING: [2, 1, 1]
+    PATCH_SIZE: [7, 3, 3]
+    PATCH_STRIDE: [4, 2, 2]
+    POS_EMBED: [False, False, False]
+    QKV_BIAS: [True, True, True]
+    QKV_PROJ_METHOD: ['dw_bn', 'dw_bn', 'dw_bn']
+    STRIDE_KV: [2, 2, 2]
+    STRIDE_Q: [1, 1, 1]
+MODEL_SUMMARY: False
+MULTIPROCESSING_DISTRIBUTED: True
+NAME: cvt-iq-dim2
+OUTPUT_DIR: OUTPUT/
+PIN_MEMORY: True
+PRINT_FREQ: 500
+RANK: 0
+TEST:
+  BATCH_SIZE_PER_GPU: 16
+  CENTER_CROP: True
+  IMAGE_SIZE: [310, 321]
+  INTERPOLATION: 3
+  MODEL_FILE: 
+  REAL_LABELS: False
+  VALID_LABELS: 
+TRAIN:
+  AUTO_RESUME: True
+  BATCH_SIZE_PER_GPU: 16
+  BEGIN_EPOCH: 0
+  CHECKPOINT: 
+  CLIP_GRAD_NORM: 0.0
+  DETECT_ANOMALY: False
+  END_EPOCH: 30
+  EVAL_BEGIN_EPOCH: 0
+  GAMMA1: 0.99
+  GAMMA2: 0.0
+  IMAGE_SIZE: [310, 321]
+  LR: 0.00025
+  LR_SCHEDULER:
+    ARGS:
+      cooldown_epochs: 10
+      decay_rate: 0.1
+      epochs: 30
+      min_lr: 1e-05
+      sched: cosine
+      warmup_epochs: 5
+      warmup_lr: 1e-06
+    METHOD: timm
+  MOMENTUM: 0.9
+  NESTEROV: True
+  OPTIMIZER: adamW
+  OPTIMIZER_ARGS:
+    
+  SAVE_ALL_MODELS: False
+  SCALE_LR: True
+  SHUFFLE: True
+  WD: 0.05
+  WITHOUT_WD_LIST: ['bn', 'bias', 'ln']
+VERBOSE: True
+WORKERS: 4
+2025-02-23 16:27:05,068:[P:13589]:Rank[0/1] => using 1 GPUs
+2025-02-23 16:27:05,068:[P:13589]:Rank[0/1] => saving config into: OUTPUT/multidim_imagenet/cvt-iq-dim2/config.yaml
+2025-02-23 16:27:05,080:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,080:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,080:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,080:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,081:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,082:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,139:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,140:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,140:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,140:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,141:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,141:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,141:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,142:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,142:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,143:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,143:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,144:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,145:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,145:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,145:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,146:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,146:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,147:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,147:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,148:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,148:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,149:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,149:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,150:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,268:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,269:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,269:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,271:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,271:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,272:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,272:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,274:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,274:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,278:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,278:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,281:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,282:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,283:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,284:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,286:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,286:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,288:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,289:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,290:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,290:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,294:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,294:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,298:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,298:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,300:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,300:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,302:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,302:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,304:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,304:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,305:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,305:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,309:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,309:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,313:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,313:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,314:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,314:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,316:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,316:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,317:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,317:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,319:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,319:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,323:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,324:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,327:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,328:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,329:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,329:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,330:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,330:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,331:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,331:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,332:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,333:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,336:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,337:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,341:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,341:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,343:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,343:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,345:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,345:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,346:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,346:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,347:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,348:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,351:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,351:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,355:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,355:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,357:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,357:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,358:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,358:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,359:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,359:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,360:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,361:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,364:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,365:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,369:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,369:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,371:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,371:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,372:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,372:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,373:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,373:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,374:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,374:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,378:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,378:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,383:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,383:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,384:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,384:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,386:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,386:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,387:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,388:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,389:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,389:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,393:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,393:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,396:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,397:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,398:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,398:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,399:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,399:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,400:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,400:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,401:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,401:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,405:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:05,405:[P:13589]:Rank[0/1] => init weight of Linear from trunc norm
+2025-02-23 16:27:05,409:[P:13589]:Rank[0/1] => init bias of Linear to zeros
+2025-02-23 16:27:38,623:[P:13589]:Rank[0/1] => ConvolutionalVisionTransformer(
+  (stage0): VisionTransformer(
+    (patch_embed): ConvEmbed(
+      (proj): Conv2d(3, 64, kernel_size=(7, 7), stride=(4, 4), padding=(2, 2))
+      (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    )
+    (pos_drop): Dropout(p=0.0, inplace=False)
+    (blocks): ModuleList(
+      (0): Block(
+        (norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64, bias=False)
+            (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+            (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=64, bias=False)
+            (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=64, out_features=64, bias=True)
+          (proj_k): Linear(in_features=64, out_features=64, bias=True)
+          (proj_v): Linear(in_features=64, out_features=64, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=64, out_features=64, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=64, out_features=256, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=256, out_features=64, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+    )
+  )
+  (stage1): VisionTransformer(
+    (patch_embed): ConvEmbed(
+      (proj): Conv2d(64, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+    )
+    (pos_drop): Dropout(p=0.0, inplace=False)
+    (blocks): ModuleList(
+      (0): Block(
+        (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192, bias=False)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192, bias=False)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=192, out_features=192, bias=True)
+          (proj_k): Linear(in_features=192, out_features=192, bias=True)
+          (proj_v): Linear(in_features=192, out_features=192, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=192, out_features=192, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=192, out_features=768, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=768, out_features=192, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (1): Block(
+        (norm1): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192, bias=False)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192, bias=False)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192, bias=False)
+            (bn): BatchNorm2d(192, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=192, out_features=192, bias=True)
+          (proj_k): Linear(in_features=192, out_features=192, bias=True)
+          (proj_v): Linear(in_features=192, out_features=192, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=192, out_features=192, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=192, out_features=768, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=768, out_features=192, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+    )
+  )
+  (stage2): VisionTransformer(
+    (patch_embed): ConvEmbed(
+      (proj): Conv2d(192, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+      (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+    )
+    (pos_drop): Dropout(p=0.0, inplace=False)
+    (blocks): ModuleList(
+      (0): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (1): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (2): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (3): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (4): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (5): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (6): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (7): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (8): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+      (9): Block(
+        (norm1): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (attn): Attention(
+          (conv_proj_q): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_k): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (conv_proj_v): Sequential(
+            (conv): Conv2d(384, 384, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=384, bias=False)
+            (bn): BatchNorm2d(384, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (rearrage): Rearrange('b c h w -> b (h w) c')
+          )
+          (proj_q): Linear(in_features=384, out_features=384, bias=True)
+          (proj_k): Linear(in_features=384, out_features=384, bias=True)
+          (proj_v): Linear(in_features=384, out_features=384, bias=True)
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=384, out_features=384, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (drop_path): DropPath()
+        (norm2): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=384, out_features=1536, bias=True)
+          (act): QuickGELU()
+          (fc2): Linear(in_features=1536, out_features=384, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+      )
+    )
+  )
+  (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  (head): Linear(in_features=384, out_features=1000, bias=True)
+  (merge_attn): MergeAttention(
+    (mha): MultiheadAttention(
+      (out_proj): _LinearWithBias(in_features=384, out_features=384, bias=True)
+    )
+    (norm): LayerNorm((384,), eps=1e-05, elementwise_affine=True)
+  )
+)
+2025-02-23 16:27:38,625:[P:13589]:Rank[0/1] Trainable Model Total Parameter: 	20.6M
+2025-02-23 16:27:38,645:[P:13589]:Rank[0/1] => MultiDimImageDataset from 'DATASET/iqmel/train' loaded. total samples: 617
+2025-02-23 16:27:38,645:[P:13589]:Rank[0/1] => [build_dataset] dataset=multidim_imagenet, is_train=True, #samples=617
+2025-02-23 16:27:38,953:[P:13589]:Rank[0/1] [DEBUG] Batch shape: torch.Size([16, 2, 3, 310, 310])
+2025-02-23 16:27:39,077:[P:13589]:Rank[0/1] => MultiDimImageDataset from 'DATASET/iqmel/val' loaded. total samples: 155
+2025-02-23 16:27:39,077:[P:13589]:Rank[0/1] => [build_dataset] dataset=multidim_imagenet, is_train=False, #samples=155
+2025-02-23 16:27:39,409:[P:13589]:Rank[0/1] [DEBUG] Batch shape: torch.Size([16, 2, 3, 310, 310])
+2025-02-23 16:27:39,541:[P:13589]:Rank[0/1] => start training
+2025-02-23 16:27:39,541:[P:13589]:Rank[0/1] => Epoch[0]: epoch start
+2025-02-23 16:27:39,541:[P:13589]:Rank[0/1] => Epoch[0]: train start
+2025-02-23 16:27:39,542:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:27:48,987:[P:13589]:Rank[0/1] => Epoch[0][0/38]: Time 9.444s (9.444s)	Speed 1.7 samples/s	Data 0.215s (0.215s)	Loss 6.95623 (6.95623)	Accuracy@1 0.000 (0.000)	Accuracy@5 0.000 (0.000)	
+2025-02-23 16:32:54,190:[P:13589]:Rank[0/1] => Epoch[0]: train end, duration: 314.65s
+2025-02-23 16:32:54,191:[P:13589]:Rank[0/1] => Epoch[0]: validate start
+2025-02-23 16:32:54,191:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:33:01,666:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:33:01,666:[P:13589]:Rank[0/1] => TEST:	Loss 5.5826	Error@1 58.065%	Error@5 1.290%	Accuracy@1 41.935%	Accuracy@5 98.710%	
+2025-02-23 16:33:01,667:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:33:01,668:[P:13589]:Rank[0/1] => Epoch[0]: validate end, duration: 7.48s
+2025-02-23 16:33:01,668:[P:13589]:Rank[0/1] => lr: 5.0799999999999995e-05
+2025-02-23 16:33:01,670:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:33:02,059:[P:13589]:Rank[0/1] => save model to OUTPUT/multidim_imagenet/cvt-iq-dim2/model_best.pth
+2025-02-23 16:33:02,191:[P:13589]:Rank[0/1] => Epoch[0]: epoch end, duration : 322.65s
+2025-02-23 16:33:02,191:[P:13589]:Rank[0/1] => Epoch[1]: epoch start
+2025-02-23 16:33:02,191:[P:13589]:Rank[0/1] => Epoch[1]: train start
+2025-02-23 16:33:02,191:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:33:08,979:[P:13589]:Rank[0/1] => Epoch[1][0/38]: Time 6.786s (6.786s)	Speed 2.4 samples/s	Data 0.257s (0.257s)	Loss 5.71817 (5.71817)	Accuracy@1 56.250 (56.250)	Accuracy@5 93.750 (93.750)	
+2025-02-23 16:36:52,499:[P:13589]:Rank[0/1] => Epoch[1]: train end, duration: 230.31s
+2025-02-23 16:36:52,500:[P:13589]:Rank[0/1] => Epoch[1]: validate start
+2025-02-23 16:36:52,500:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:37:00,769:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:37:00,770:[P:13589]:Rank[0/1] => TEST:	Loss 1.2147	Error@1 29.032%	Error@5 0.000%	Accuracy@1 70.968%	Accuracy@5 100.000%	
+2025-02-23 16:37:00,770:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:37:00,771:[P:13589]:Rank[0/1] => Epoch[1]: validate end, duration: 8.27s
+2025-02-23 16:37:00,772:[P:13589]:Rank[0/1] => lr: 0.00010059999999999999
+2025-02-23 16:37:00,774:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:37:01,215:[P:13589]:Rank[0/1] => save model to OUTPUT/multidim_imagenet/cvt-iq-dim2/model_best.pth
+2025-02-23 16:37:01,434:[P:13589]:Rank[0/1] => Epoch[1]: epoch end, duration : 239.24s
+2025-02-23 16:37:01,434:[P:13589]:Rank[0/1] => Epoch[2]: epoch start
+2025-02-23 16:37:01,434:[P:13589]:Rank[0/1] => Epoch[2]: train start
+2025-02-23 16:37:01,434:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:37:07,606:[P:13589]:Rank[0/1] => Epoch[2][0/38]: Time 6.171s (6.171s)	Speed 2.6 samples/s	Data 0.257s (0.257s)	Loss 1.85409 (1.85409)	Accuracy@1 87.500 (87.500)	Accuracy@5 100.000 (100.000)	
+2025-02-23 16:40:52,199:[P:13589]:Rank[0/1] => Epoch[2]: train end, duration: 230.76s
+2025-02-23 16:40:52,200:[P:13589]:Rank[0/1] => Epoch[2]: validate start
+2025-02-23 16:40:52,200:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:41:00,965:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:41:00,965:[P:13589]:Rank[0/1] => TEST:	Loss 0.8435	Error@1 41.935%	Error@5 0.000%	Accuracy@1 58.065%	Accuracy@5 100.000%	
+2025-02-23 16:41:00,965:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:41:00,967:[P:13589]:Rank[0/1] => Epoch[2]: validate end, duration: 8.77s
+2025-02-23 16:41:00,967:[P:13589]:Rank[0/1] => lr: 0.0001504
+2025-02-23 16:41:00,969:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:41:03,275:[P:13589]:Rank[0/1] => Epoch[2]: epoch end, duration : 241.84s
+2025-02-23 16:41:03,275:[P:13589]:Rank[0/1] => Epoch[3]: epoch start
+2025-02-23 16:41:03,275:[P:13589]:Rank[0/1] => Epoch[3]: train start
+2025-02-23 16:41:03,275:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:41:09,408:[P:13589]:Rank[0/1] => Epoch[3][0/38]: Time 6.132s (6.132s)	Speed 2.6 samples/s	Data 0.236s (0.236s)	Loss 1.62403 (1.62403)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 16:44:54,630:[P:13589]:Rank[0/1] => Epoch[3]: train end, duration: 231.35s
+2025-02-23 16:44:54,631:[P:13589]:Rank[0/1] => Epoch[3]: validate start
+2025-02-23 16:44:54,631:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:45:00,993:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:45:00,993:[P:13589]:Rank[0/1] => TEST:	Loss 0.7681	Error@1 48.387%	Error@5 0.000%	Accuracy@1 51.613%	Accuracy@5 100.000%	
+2025-02-23 16:45:00,994:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:45:00,995:[P:13589]:Rank[0/1] => Epoch[3]: validate end, duration: 6.36s
+2025-02-23 16:45:00,995:[P:13589]:Rank[0/1] => lr: 0.0002002
+2025-02-23 16:45:00,998:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:45:03,308:[P:13589]:Rank[0/1] => Epoch[3]: epoch end, duration : 240.03s
+2025-02-23 16:45:03,308:[P:13589]:Rank[0/1] => Epoch[4]: epoch start
+2025-02-23 16:45:03,308:[P:13589]:Rank[0/1] => Epoch[4]: train start
+2025-02-23 16:45:03,308:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:45:09,591:[P:13589]:Rank[0/1] => Epoch[4][0/38]: Time 6.282s (6.282s)	Speed 2.5 samples/s	Data 0.234s (0.234s)	Loss 1.64394 (1.64394)	Accuracy@1 25.000 (25.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 16:48:55,576:[P:13589]:Rank[0/1] => Epoch[4]: train end, duration: 232.27s
+2025-02-23 16:48:55,576:[P:13589]:Rank[0/1] => Epoch[4]: validate start
+2025-02-23 16:48:55,577:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:49:01,888:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:49:01,889:[P:13589]:Rank[0/1] => TEST:	Loss 0.7138	Error@1 20.645%	Error@5 0.000%	Accuracy@1 79.355%	Accuracy@5 100.000%	
+2025-02-23 16:49:01,889:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:49:01,890:[P:13589]:Rank[0/1] => Epoch[4]: validate end, duration: 6.31s
+2025-02-23 16:49:01,891:[P:13589]:Rank[0/1] => lr: 0.00023392304845413266
+2025-02-23 16:49:01,893:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:49:04,214:[P:13589]:Rank[0/1] => save model to OUTPUT/multidim_imagenet/cvt-iq-dim2/model_best.pth
+2025-02-23 16:49:04,356:[P:13589]:Rank[0/1] => Epoch[4]: epoch end, duration : 241.05s
+2025-02-23 16:49:04,357:[P:13589]:Rank[0/1] => Epoch[5]: epoch start
+2025-02-23 16:49:04,357:[P:13589]:Rank[0/1] => Epoch[5]: train start
+2025-02-23 16:49:04,357:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:49:10,426:[P:13589]:Rank[0/1] => Epoch[5][0/38]: Time 6.069s (6.069s)	Speed 2.6 samples/s	Data 0.206s (0.206s)	Loss 1.62913 (1.62913)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 16:52:56,164:[P:13589]:Rank[0/1] => Epoch[5]: train end, duration: 231.81s
+2025-02-23 16:52:56,164:[P:13589]:Rank[0/1] => Epoch[5]: validate start
+2025-02-23 16:52:56,165:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:53:02,542:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:53:02,542:[P:13589]:Rank[0/1] => TEST:	Loss 0.7733	Error@1 29.677%	Error@5 0.000%	Accuracy@1 70.323%	Accuracy@5 100.000%	
+2025-02-23 16:53:02,543:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:53:02,544:[P:13589]:Rank[0/1] => Epoch[5]: validate end, duration: 6.38s
+2025-02-23 16:53:02,544:[P:13589]:Rank[0/1] => lr: 0.0002270820393249937
+2025-02-23 16:53:02,546:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:53:04,828:[P:13589]:Rank[0/1] => Epoch[5]: epoch end, duration : 240.47s
+2025-02-23 16:53:04,828:[P:13589]:Rank[0/1] => Epoch[6]: epoch start
+2025-02-23 16:53:04,828:[P:13589]:Rank[0/1] => Epoch[6]: train start
+2025-02-23 16:53:04,829:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:53:11,042:[P:13589]:Rank[0/1] => Epoch[6][0/38]: Time 6.212s (6.212s)	Speed 2.6 samples/s	Data 0.277s (0.277s)	Loss 1.57306 (1.57306)	Accuracy@1 75.000 (75.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 16:57:09,377:[P:13589]:Rank[0/1] => Epoch[6]: train end, duration: 244.55s
+2025-02-23 16:57:09,377:[P:13589]:Rank[0/1] => Epoch[6]: validate start
+2025-02-23 16:57:09,379:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 16:57:15,806:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 16:57:15,807:[P:13589]:Rank[0/1] => TEST:	Loss 0.7614	Error@1 34.194%	Error@5 0.000%	Accuracy@1 65.806%	Accuracy@5 100.000%	
+2025-02-23 16:57:15,807:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:57:15,809:[P:13589]:Rank[0/1] => Epoch[6]: validate end, duration: 6.43s
+2025-02-23 16:57:15,809:[P:13589]:Rank[0/1] => lr: 0.0002191773790572873
+2025-02-23 16:57:15,811:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 16:57:18,112:[P:13589]:Rank[0/1] => Epoch[6]: epoch end, duration : 253.28s
+2025-02-23 16:57:18,112:[P:13589]:Rank[0/1] => Epoch[7]: epoch start
+2025-02-23 16:57:18,112:[P:13589]:Rank[0/1] => Epoch[7]: train start
+2025-02-23 16:57:18,112:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 16:57:24,260:[P:13589]:Rank[0/1] => Epoch[7][0/38]: Time 6.147s (6.147s)	Speed 2.6 samples/s	Data 0.249s (0.249s)	Loss 1.62451 (1.62451)	Accuracy@1 56.250 (56.250)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:01:10,749:[P:13589]:Rank[0/1] => Epoch[7]: train end, duration: 232.64s
+2025-02-23 17:01:10,750:[P:13589]:Rank[0/1] => Epoch[7]: validate start
+2025-02-23 17:01:10,751:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:01:17,154:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:01:17,154:[P:13589]:Rank[0/1] => TEST:	Loss 0.7228	Error@1 24.516%	Error@5 0.000%	Accuracy@1 75.484%	Accuracy@5 100.000%	
+2025-02-23 17:01:17,155:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:01:17,156:[P:13589]:Rank[0/1] => Epoch[7]: validate end, duration: 6.41s
+2025-02-23 17:01:17,157:[P:13589]:Rank[0/1] => lr: 0.000210295672763063
+2025-02-23 17:01:17,159:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:01:19,505:[P:13589]:Rank[0/1] => Epoch[7]: epoch end, duration : 241.39s
+2025-02-23 17:01:19,505:[P:13589]:Rank[0/1] => Epoch[8]: epoch start
+2025-02-23 17:01:19,505:[P:13589]:Rank[0/1] => Epoch[8]: train start
+2025-02-23 17:01:19,505:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:01:25,748:[P:13589]:Rank[0/1] => Epoch[8][0/38]: Time 6.242s (6.242s)	Speed 2.6 samples/s	Data 0.266s (0.266s)	Loss 1.62698 (1.62698)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:05:13,480:[P:13589]:Rank[0/1] => Epoch[8]: train end, duration: 233.98s
+2025-02-23 17:05:13,481:[P:13589]:Rank[0/1] => Epoch[8]: validate start
+2025-02-23 17:05:13,481:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:05:21,542:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:05:21,542:[P:13589]:Rank[0/1] => TEST:	Loss 0.7812	Error@1 50.968%	Error@5 0.000%	Accuracy@1 49.032%	Accuracy@5 100.000%	
+2025-02-23 17:05:21,543:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:05:21,544:[P:13589]:Rank[0/1] => Epoch[8]: validate end, duration: 8.06s
+2025-02-23 17:05:21,544:[P:13589]:Rank[0/1] => lr: 0.00020053423027509678
+2025-02-23 17:05:21,546:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:05:21,971:[P:13589]:Rank[0/1] => Epoch[8]: epoch end, duration : 242.47s
+2025-02-23 17:05:21,971:[P:13589]:Rank[0/1] => Epoch[9]: epoch start
+2025-02-23 17:05:21,971:[P:13589]:Rank[0/1] => Epoch[9]: train start
+2025-02-23 17:05:21,971:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:05:28,199:[P:13589]:Rank[0/1] => Epoch[9][0/38]: Time 6.227s (6.227s)	Speed 2.6 samples/s	Data 0.274s (0.274s)	Loss 1.69856 (1.69856)	Accuracy@1 43.750 (43.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:09:15,126:[P:13589]:Rank[0/1] => Epoch[9]: train end, duration: 233.16s
+2025-02-23 17:09:15,127:[P:13589]:Rank[0/1] => Epoch[9]: validate start
+2025-02-23 17:09:15,128:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:09:23,443:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:09:23,444:[P:13589]:Rank[0/1] => TEST:	Loss 0.7541	Error@1 41.290%	Error@5 0.000%	Accuracy@1 58.710%	Accuracy@5 100.000%	
+2025-02-23 17:09:23,444:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:09:23,446:[P:13589]:Rank[0/1] => Epoch[9]: validate end, duration: 8.32s
+2025-02-23 17:09:23,446:[P:13589]:Rank[0/1] => lr: 0.00019
+2025-02-23 17:09:23,448:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:09:23,878:[P:13589]:Rank[0/1] => Epoch[9]: epoch end, duration : 241.91s
+2025-02-23 17:09:23,878:[P:13589]:Rank[0/1] => Epoch[10]: epoch start
+2025-02-23 17:09:23,878:[P:13589]:Rank[0/1] => Epoch[10]: train start
+2025-02-23 17:09:23,878:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:09:30,059:[P:13589]:Rank[0/1] => Epoch[10][0/38]: Time 6.180s (6.180s)	Speed 2.6 samples/s	Data 0.221s (0.221s)	Loss 1.84357 (1.84357)	Accuracy@1 43.750 (43.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:13:17,026:[P:13589]:Rank[0/1] => Epoch[10]: train end, duration: 233.15s
+2025-02-23 17:13:17,027:[P:13589]:Rank[0/1] => Epoch[10]: validate start
+2025-02-23 17:13:17,027:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:13:23,258:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:13:23,258:[P:13589]:Rank[0/1] => TEST:	Loss 0.7145	Error@1 34.194%	Error@5 0.000%	Accuracy@1 65.806%	Accuracy@5 100.000%	
+2025-02-23 17:13:23,258:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:13:23,260:[P:13589]:Rank[0/1] => Epoch[10]: validate end, duration: 6.23s
+2025-02-23 17:13:23,260:[P:13589]:Rank[0/1] => lr: 0.00017880839716909606
+2025-02-23 17:13:23,262:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:13:25,587:[P:13589]:Rank[0/1] => Epoch[10]: epoch end, duration : 241.71s
+2025-02-23 17:13:25,587:[P:13589]:Rank[0/1] => Epoch[11]: epoch start
+2025-02-23 17:13:25,587:[P:13589]:Rank[0/1] => Epoch[11]: train start
+2025-02-23 17:13:25,587:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:13:34,547:[P:13589]:Rank[0/1] => Epoch[11][0/38]: Time 8.959s (8.959s)	Speed 1.8 samples/s	Data 0.257s (0.257s)	Loss 1.56740 (1.56740)	Accuracy@1 75.000 (75.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:17:21,823:[P:13589]:Rank[0/1] => Epoch[11]: train end, duration: 236.24s
+2025-02-23 17:17:21,823:[P:13589]:Rank[0/1] => Epoch[11]: validate start
+2025-02-23 17:17:21,823:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:17:28,056:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:17:28,056:[P:13589]:Rank[0/1] => TEST:	Loss 0.7036	Error@1 24.516%	Error@5 0.000%	Accuracy@1 75.484%	Accuracy@5 100.000%	
+2025-02-23 17:17:28,057:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:17:28,058:[P:13589]:Rank[0/1] => Epoch[11]: validate end, duration: 6.24s
+2025-02-23 17:17:28,058:[P:13589]:Rank[0/1] => lr: 0.00016708203932499368
+2025-02-23 17:17:28,062:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:17:30,375:[P:13589]:Rank[0/1] => Epoch[11]: epoch end, duration : 244.79s
+2025-02-23 17:17:30,375:[P:13589]:Rank[0/1] => Epoch[12]: epoch start
+2025-02-23 17:17:30,375:[P:13589]:Rank[0/1] => Epoch[12]: train start
+2025-02-23 17:17:30,375:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:17:36,536:[P:13589]:Rank[0/1] => Epoch[12][0/38]: Time 6.160s (6.160s)	Speed 2.6 samples/s	Data 0.214s (0.214s)	Loss 1.57534 (1.57534)	Accuracy@1 62.500 (62.500)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:21:18,206:[P:13589]:Rank[0/1] => Epoch[12]: train end, duration: 227.83s
+2025-02-23 17:21:18,207:[P:13589]:Rank[0/1] => Epoch[12]: validate start
+2025-02-23 17:21:18,207:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:21:26,271:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:21:26,271:[P:13589]:Rank[0/1] => TEST:	Loss 0.7190	Error@1 31.613%	Error@5 0.000%	Accuracy@1 68.387%	Accuracy@5 100.000%	
+2025-02-23 17:21:26,272:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:21:26,273:[P:13589]:Rank[0/1] => Epoch[12]: validate end, duration: 8.07s
+2025-02-23 17:21:26,273:[P:13589]:Rank[0/1] => lr: 0.0001549494028981311
+2025-02-23 17:21:26,276:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:21:26,721:[P:13589]:Rank[0/1] => Epoch[12]: epoch end, duration : 236.35s
+2025-02-23 17:21:26,721:[P:13589]:Rank[0/1] => Epoch[13]: epoch start
+2025-02-23 17:21:26,721:[P:13589]:Rank[0/1] => Epoch[13]: train start
+2025-02-23 17:21:26,721:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:21:32,874:[P:13589]:Rank[0/1] => Epoch[13][0/38]: Time 6.151s (6.151s)	Speed 2.6 samples/s	Data 0.221s (0.221s)	Loss 1.55892 (1.55892)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:25:19,646:[P:13589]:Rank[0/1] => Epoch[13]: train end, duration: 232.92s
+2025-02-23 17:25:19,646:[P:13589]:Rank[0/1] => Epoch[13]: validate start
+2025-02-23 17:25:19,647:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:25:26,045:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:25:26,046:[P:13589]:Rank[0/1] => TEST:	Loss 0.7146	Error@1 27.742%	Error@5 0.000%	Accuracy@1 72.258%	Accuracy@5 100.000%	
+2025-02-23 17:25:26,046:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:25:26,047:[P:13589]:Rank[0/1] => Epoch[13]: validate end, duration: 6.40s
+2025-02-23 17:25:26,047:[P:13589]:Rank[0/1] => lr: 0.00014254341559211844
+2025-02-23 17:25:26,051:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:25:28,415:[P:13589]:Rank[0/1] => Epoch[13]: epoch end, duration : 241.69s
+2025-02-23 17:25:28,416:[P:13589]:Rank[0/1] => Epoch[14]: epoch start
+2025-02-23 17:25:28,416:[P:13589]:Rank[0/1] => Epoch[14]: train start
+2025-02-23 17:25:28,416:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:25:34,604:[P:13589]:Rank[0/1] => Epoch[14][0/38]: Time 6.188s (6.188s)	Speed 2.6 samples/s	Data 0.259s (0.259s)	Loss 1.57718 (1.57718)	Accuracy@1 62.500 (62.500)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:29:19,500:[P:13589]:Rank[0/1] => Epoch[14]: train end, duration: 231.08s
+2025-02-23 17:29:19,501:[P:13589]:Rank[0/1] => Epoch[14]: validate start
+2025-02-23 17:29:19,502:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:29:27,682:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:29:27,682:[P:13589]:Rank[0/1] => TEST:	Loss 0.7652	Error@1 40.000%	Error@5 0.000%	Accuracy@1 60.000%	Accuracy@5 100.000%	
+2025-02-23 17:29:27,683:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:29:27,684:[P:13589]:Rank[0/1] => Epoch[14]: validate end, duration: 8.18s
+2025-02-23 17:29:27,684:[P:13589]:Rank[0/1] => lr: 0.00013000000000000004
+2025-02-23 17:29:27,687:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:29:28,116:[P:13589]:Rank[0/1] => Epoch[14]: epoch end, duration : 239.70s
+2025-02-23 17:29:28,116:[P:13589]:Rank[0/1] => Epoch[15]: epoch start
+2025-02-23 17:29:28,116:[P:13589]:Rank[0/1] => Epoch[15]: train start
+2025-02-23 17:29:28,116:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:29:34,300:[P:13589]:Rank[0/1] => Epoch[15][0/38]: Time 6.182s (6.182s)	Speed 2.6 samples/s	Data 0.274s (0.274s)	Loss 1.65034 (1.65034)	Accuracy@1 50.000 (50.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:33:15,104:[P:13589]:Rank[0/1] => Epoch[15]: train end, duration: 226.99s
+2025-02-23 17:33:15,105:[P:13589]:Rank[0/1] => Epoch[15]: validate start
+2025-02-23 17:33:15,105:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:33:21,511:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:33:21,511:[P:13589]:Rank[0/1] => TEST:	Loss 0.7154	Error@1 32.903%	Error@5 0.000%	Accuracy@1 67.097%	Accuracy@5 100.000%	
+2025-02-23 17:33:21,512:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:33:21,513:[P:13589]:Rank[0/1] => Epoch[15]: validate end, duration: 6.41s
+2025-02-23 17:33:21,513:[P:13589]:Rank[0/1] => lr: 0.0001174565844078816
+2025-02-23 17:33:21,515:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:33:23,879:[P:13589]:Rank[0/1] => Epoch[15]: epoch end, duration : 235.76s
+2025-02-23 17:33:23,880:[P:13589]:Rank[0/1] => Epoch[16]: epoch start
+2025-02-23 17:33:23,880:[P:13589]:Rank[0/1] => Epoch[16]: train start
+2025-02-23 17:33:23,880:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:33:30,059:[P:13589]:Rank[0/1] => Epoch[16][0/38]: Time 6.178s (6.178s)	Speed 2.6 samples/s	Data 0.280s (0.280s)	Loss 1.56915 (1.56915)	Accuracy@1 81.250 (81.250)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:37:11,405:[P:13589]:Rank[0/1] => Epoch[16]: train end, duration: 227.53s
+2025-02-23 17:37:11,406:[P:13589]:Rank[0/1] => Epoch[16]: validate start
+2025-02-23 17:37:11,407:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:37:17,955:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:37:17,956:[P:13589]:Rank[0/1] => TEST:	Loss 0.7216	Error@1 34.194%	Error@5 0.000%	Accuracy@1 65.806%	Accuracy@5 100.000%	
+2025-02-23 17:37:17,956:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:37:17,957:[P:13589]:Rank[0/1] => Epoch[16]: validate end, duration: 6.55s
+2025-02-23 17:37:17,958:[P:13589]:Rank[0/1] => lr: 0.00010505059710186888
+2025-02-23 17:37:17,960:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:37:20,325:[P:13589]:Rank[0/1] => Epoch[16]: epoch end, duration : 236.45s
+2025-02-23 17:37:20,325:[P:13589]:Rank[0/1] => Epoch[17]: epoch start
+2025-02-23 17:37:20,325:[P:13589]:Rank[0/1] => Epoch[17]: train start
+2025-02-23 17:37:20,325:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:37:26,543:[P:13589]:Rank[0/1] => Epoch[17][0/38]: Time 6.217s (6.217s)	Speed 2.6 samples/s	Data 0.278s (0.278s)	Loss 1.55451 (1.55451)	Accuracy@1 62.500 (62.500)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:41:11,327:[P:13589]:Rank[0/1] => Epoch[17]: train end, duration: 231.00s
+2025-02-23 17:41:11,328:[P:13589]:Rank[0/1] => Epoch[17]: validate start
+2025-02-23 17:41:11,328:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:41:19,641:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:41:19,642:[P:13589]:Rank[0/1] => TEST:	Loss 0.7297	Error@1 37.419%	Error@5 0.000%	Accuracy@1 62.581%	Accuracy@5 100.000%	
+2025-02-23 17:41:19,642:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:41:19,644:[P:13589]:Rank[0/1] => Epoch[17]: validate end, duration: 8.32s
+2025-02-23 17:41:19,645:[P:13589]:Rank[0/1] => lr: 9.291796067500632e-05
+2025-02-23 17:41:19,646:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:41:20,097:[P:13589]:Rank[0/1] => Epoch[17]: epoch end, duration : 239.77s
+2025-02-23 17:41:20,097:[P:13589]:Rank[0/1] => Epoch[18]: epoch start
+2025-02-23 17:41:20,097:[P:13589]:Rank[0/1] => Epoch[18]: train start
+2025-02-23 17:41:20,097:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:41:26,337:[P:13589]:Rank[0/1] => Epoch[18][0/38]: Time 6.239s (6.239s)	Speed 2.6 samples/s	Data 0.262s (0.262s)	Loss 1.51830 (1.51830)	Accuracy@1 81.250 (81.250)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:45:14,523:[P:13589]:Rank[0/1] => Epoch[18]: train end, duration: 234.43s
+2025-02-23 17:45:14,523:[P:13589]:Rank[0/1] => Epoch[18]: validate start
+2025-02-23 17:45:14,524:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:45:22,912:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:45:22,912:[P:13589]:Rank[0/1] => TEST:	Loss 0.7045	Error@1 27.097%	Error@5 0.000%	Accuracy@1 72.903%	Accuracy@5 100.000%	
+2025-02-23 17:45:22,913:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:45:22,914:[P:13589]:Rank[0/1] => Epoch[18]: validate end, duration: 8.39s
+2025-02-23 17:45:22,915:[P:13589]:Rank[0/1] => lr: 8.1191602830904e-05
+2025-02-23 17:45:22,916:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:45:23,358:[P:13589]:Rank[0/1] => Epoch[18]: epoch end, duration : 243.26s
+2025-02-23 17:45:23,358:[P:13589]:Rank[0/1] => Epoch[19]: epoch start
+2025-02-23 17:45:23,358:[P:13589]:Rank[0/1] => Epoch[19]: train start
+2025-02-23 17:45:23,358:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:45:31,604:[P:13589]:Rank[0/1] => Epoch[19][0/38]: Time 8.245s (8.245s)	Speed 1.9 samples/s	Data 0.320s (0.320s)	Loss 1.57822 (1.57822)	Accuracy@1 75.000 (75.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:49:19,635:[P:13589]:Rank[0/1] => Epoch[19]: train end, duration: 236.28s
+2025-02-23 17:49:19,635:[P:13589]:Rank[0/1] => Epoch[19]: validate start
+2025-02-23 17:49:19,636:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:49:26,153:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:49:26,154:[P:13589]:Rank[0/1] => TEST:	Loss 0.6973	Error@1 31.613%	Error@5 0.000%	Accuracy@1 68.387%	Accuracy@5 100.000%	
+2025-02-23 17:49:26,154:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:49:26,156:[P:13589]:Rank[0/1] => Epoch[19]: validate end, duration: 6.52s
+2025-02-23 17:49:26,156:[P:13589]:Rank[0/1] => lr: 7.000000000000003e-05
+2025-02-23 17:49:26,158:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:49:28,533:[P:13589]:Rank[0/1] => Epoch[19]: epoch end, duration : 245.17s
+2025-02-23 17:49:28,533:[P:13589]:Rank[0/1] => Epoch[20]: epoch start
+2025-02-23 17:49:28,533:[P:13589]:Rank[0/1] => Epoch[20]: train start
+2025-02-23 17:49:28,533:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:49:34,801:[P:13589]:Rank[0/1] => Epoch[20][0/38]: Time 6.267s (6.267s)	Speed 2.6 samples/s	Data 0.285s (0.285s)	Loss 1.65701 (1.65701)	Accuracy@1 62.500 (62.500)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:53:21,977:[P:13589]:Rank[0/1] => Epoch[20]: train end, duration: 233.44s
+2025-02-23 17:53:21,978:[P:13589]:Rank[0/1] => Epoch[20]: validate start
+2025-02-23 17:53:21,978:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:53:30,451:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:53:30,452:[P:13589]:Rank[0/1] => TEST:	Loss 0.7120	Error@1 32.258%	Error@5 0.000%	Accuracy@1 67.742%	Accuracy@5 100.000%	
+2025-02-23 17:53:30,452:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:53:30,454:[P:13589]:Rank[0/1] => Epoch[20]: validate end, duration: 8.48s
+2025-02-23 17:53:30,455:[P:13589]:Rank[0/1] => lr: 5.9465769724903235e-05
+2025-02-23 17:53:30,456:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:53:30,914:[P:13589]:Rank[0/1] => Epoch[20]: epoch end, duration : 242.38s
+2025-02-23 17:53:30,914:[P:13589]:Rank[0/1] => Epoch[21]: epoch start
+2025-02-23 17:53:30,914:[P:13589]:Rank[0/1] => Epoch[21]: train start
+2025-02-23 17:53:30,915:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:53:37,195:[P:13589]:Rank[0/1] => Epoch[21][0/38]: Time 6.279s (6.279s)	Speed 2.5 samples/s	Data 0.275s (0.275s)	Loss 1.63492 (1.63492)	Accuracy@1 62.500 (62.500)	Accuracy@5 100.000 (100.000)	
+2025-02-23 17:57:25,325:[P:13589]:Rank[0/1] => Epoch[21]: train end, duration: 234.41s
+2025-02-23 17:57:25,326:[P:13589]:Rank[0/1] => Epoch[21]: validate start
+2025-02-23 17:57:25,326:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 17:57:33,738:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 17:57:33,738:[P:13589]:Rank[0/1] => TEST:	Loss 0.7079	Error@1 32.903%	Error@5 0.000%	Accuracy@1 67.097%	Accuracy@5 100.000%	
+2025-02-23 17:57:33,739:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:57:33,740:[P:13589]:Rank[0/1] => Epoch[21]: validate end, duration: 8.41s
+2025-02-23 17:57:33,741:[P:13589]:Rank[0/1] => lr: 4.970432723693705e-05
+2025-02-23 17:57:33,742:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 17:57:34,176:[P:13589]:Rank[0/1] => Epoch[21]: epoch end, duration : 243.26s
+2025-02-23 17:57:34,176:[P:13589]:Rank[0/1] => Epoch[22]: epoch start
+2025-02-23 17:57:34,176:[P:13589]:Rank[0/1] => Epoch[22]: train start
+2025-02-23 17:57:34,176:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 17:57:40,422:[P:13589]:Rank[0/1] => Epoch[22][0/38]: Time 6.244s (6.244s)	Speed 2.6 samples/s	Data 0.221s (0.221s)	Loss 1.57338 (1.57338)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:01:26,067:[P:13589]:Rank[0/1] => Epoch[22]: train end, duration: 231.89s
+2025-02-23 18:01:26,068:[P:13589]:Rank[0/1] => Epoch[22]: validate start
+2025-02-23 18:01:26,068:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:01:35,036:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:01:35,036:[P:13589]:Rank[0/1] => TEST:	Loss 0.6959	Error@1 31.613%	Error@5 0.000%	Accuracy@1 68.387%	Accuracy@5 100.000%	
+2025-02-23 18:01:35,037:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:01:35,038:[P:13589]:Rank[0/1] => Epoch[22]: validate end, duration: 8.97s
+2025-02-23 18:01:35,038:[P:13589]:Rank[0/1] => lr: 4.082262094271272e-05
+2025-02-23 18:01:35,041:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:01:35,473:[P:13589]:Rank[0/1] => Epoch[22]: epoch end, duration : 241.30s
+2025-02-23 18:01:35,473:[P:13589]:Rank[0/1] => Epoch[23]: epoch start
+2025-02-23 18:01:35,473:[P:13589]:Rank[0/1] => Epoch[23]: train start
+2025-02-23 18:01:35,473:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:01:43,508:[P:13589]:Rank[0/1] => Epoch[23][0/38]: Time 8.034s (8.034s)	Speed 2.0 samples/s	Data 0.297s (0.297s)	Loss 1.59555 (1.59555)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:05:29,733:[P:13589]:Rank[0/1] => Epoch[23]: train end, duration: 234.26s
+2025-02-23 18:05:29,734:[P:13589]:Rank[0/1] => Epoch[23]: validate start
+2025-02-23 18:05:29,734:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:05:36,088:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:05:36,088:[P:13589]:Rank[0/1] => TEST:	Loss 0.6853	Error@1 30.323%	Error@5 0.000%	Accuracy@1 69.677%	Accuracy@5 100.000%	
+2025-02-23 18:05:36,089:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:05:36,090:[P:13589]:Rank[0/1] => Epoch[23]: validate end, duration: 6.36s
+2025-02-23 18:05:36,090:[P:13589]:Rank[0/1] => lr: 3.291796067500632e-05
+2025-02-23 18:05:36,093:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:05:38,425:[P:13589]:Rank[0/1] => Epoch[23]: epoch end, duration : 242.95s
+2025-02-23 18:05:38,425:[P:13589]:Rank[0/1] => Epoch[24]: epoch start
+2025-02-23 18:05:38,425:[P:13589]:Rank[0/1] => Epoch[24]: train start
+2025-02-23 18:05:38,426:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:05:44,629:[P:13589]:Rank[0/1] => Epoch[24][0/38]: Time 6.203s (6.203s)	Speed 2.6 samples/s	Data 0.225s (0.225s)	Loss 1.71739 (1.71739)	Accuracy@1 56.250 (56.250)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:09:30,207:[P:13589]:Rank[0/1] => Epoch[24]: train end, duration: 231.78s
+2025-02-23 18:09:30,208:[P:13589]:Rank[0/1] => Epoch[24]: validate start
+2025-02-23 18:09:30,209:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:09:38,501:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:09:38,502:[P:13589]:Rank[0/1] => TEST:	Loss 0.6841	Error@1 27.097%	Error@5 0.000%	Accuracy@1 72.903%	Accuracy@5 100.000%	
+2025-02-23 18:09:38,502:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:09:38,503:[P:13589]:Rank[0/1] => Epoch[24]: validate end, duration: 8.29s
+2025-02-23 18:09:38,504:[P:13589]:Rank[0/1] => lr: 2.6076951545867354e-05
+2025-02-23 18:09:38,506:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:09:38,937:[P:13589]:Rank[0/1] => Epoch[24]: epoch end, duration : 240.51s
+2025-02-23 18:09:38,937:[P:13589]:Rank[0/1] => Epoch[25]: epoch start
+2025-02-23 18:09:38,937:[P:13589]:Rank[0/1] => Epoch[25]: train start
+2025-02-23 18:09:38,937:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:09:45,145:[P:13589]:Rank[0/1] => Epoch[25][0/38]: Time 6.208s (6.208s)	Speed 2.6 samples/s	Data 0.225s (0.225s)	Loss 1.60008 (1.60008)	Accuracy@1 68.750 (68.750)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:13:32,176:[P:13589]:Rank[0/1] => Epoch[25]: train end, duration: 233.24s
+2025-02-23 18:13:32,177:[P:13589]:Rank[0/1] => Epoch[25]: validate start
+2025-02-23 18:13:32,177:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:13:38,586:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:13:38,587:[P:13589]:Rank[0/1] => TEST:	Loss 0.6985	Error@1 30.323%	Error@5 0.000%	Accuracy@1 69.677%	Accuracy@5 100.000%	
+2025-02-23 18:13:38,587:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:13:38,589:[P:13589]:Rank[0/1] => Epoch[25]: validate end, duration: 6.41s
+2025-02-23 18:13:38,589:[P:13589]:Rank[0/1] => lr: 2.0374545082887882e-05
+2025-02-23 18:13:38,591:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:13:40,942:[P:13589]:Rank[0/1] => Epoch[25]: epoch end, duration : 242.00s
+2025-02-23 18:13:40,942:[P:13589]:Rank[0/1] => Epoch[26]: epoch start
+2025-02-23 18:13:40,942:[P:13589]:Rank[0/1] => Epoch[26]: train start
+2025-02-23 18:13:40,942:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:13:47,218:[P:13589]:Rank[0/1] => Epoch[26][0/38]: Time 6.275s (6.275s)	Speed 2.5 samples/s	Data 0.277s (0.277s)	Loss 1.49121 (1.49121)	Accuracy@1 75.000 (75.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:17:35,438:[P:13589]:Rank[0/1] => Epoch[26]: train end, duration: 234.50s
+2025-02-23 18:17:35,438:[P:13589]:Rank[0/1] => Epoch[26]: validate start
+2025-02-23 18:17:35,439:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:17:43,764:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:17:43,765:[P:13589]:Rank[0/1] => TEST:	Loss 0.6828	Error@1 29.677%	Error@5 0.000%	Accuracy@1 70.323%	Accuracy@5 100.000%	
+2025-02-23 18:17:43,765:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:17:43,766:[P:13589]:Rank[0/1] => Epoch[26]: validate end, duration: 8.33s
+2025-02-23 18:17:43,766:[P:13589]:Rank[0/1] => lr: 1.587321804458158e-05
+2025-02-23 18:17:43,769:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:17:44,201:[P:13589]:Rank[0/1] => Epoch[26]: epoch end, duration : 243.26s
+2025-02-23 18:17:44,201:[P:13589]:Rank[0/1] => Epoch[27]: epoch start
+2025-02-23 18:17:44,201:[P:13589]:Rank[0/1] => Epoch[27]: train start
+2025-02-23 18:17:44,201:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:17:50,422:[P:13589]:Rank[0/1] => Epoch[27][0/38]: Time 6.220s (6.220s)	Speed 2.6 samples/s	Data 0.218s (0.218s)	Loss 1.54262 (1.54262)	Accuracy@1 75.000 (75.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:21:37,917:[P:13589]:Rank[0/1] => Epoch[27]: train end, duration: 233.72s
+2025-02-23 18:21:37,918:[P:13589]:Rank[0/1] => Epoch[27]: validate start
+2025-02-23 18:21:37,918:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:21:46,125:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:21:46,125:[P:13589]:Rank[0/1] => TEST:	Loss 0.6792	Error@1 29.032%	Error@5 0.000%	Accuracy@1 70.968%	Accuracy@5 100.000%	
+2025-02-23 18:21:46,126:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:21:46,127:[P:13589]:Rank[0/1] => Epoch[27]: validate end, duration: 8.21s
+2025-02-23 18:21:46,128:[P:13589]:Rank[0/1] => lr: 1.2622287911943319e-05
+2025-02-23 18:21:46,130:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:21:46,565:[P:13589]:Rank[0/1] => Epoch[27]: epoch end, duration : 242.36s
+2025-02-23 18:21:46,565:[P:13589]:Rank[0/1] => Epoch[28]: epoch start
+2025-02-23 18:21:46,565:[P:13589]:Rank[0/1] => Epoch[28]: train start
+2025-02-23 18:21:46,565:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:21:52,760:[P:13589]:Rank[0/1] => Epoch[28][0/38]: Time 6.193s (6.193s)	Speed 2.6 samples/s	Data 0.249s (0.249s)	Loss 1.67148 (1.67148)	Accuracy@1 50.000 (50.000)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:25:43,513:[P:13589]:Rank[0/1] => Epoch[28]: train end, duration: 236.95s
+2025-02-23 18:25:43,514:[P:13589]:Rank[0/1] => Epoch[28]: validate start
+2025-02-23 18:25:43,514:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:25:49,938:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:25:49,938:[P:13589]:Rank[0/1] => TEST:	Loss 0.6758	Error@1 29.032%	Error@5 0.000%	Accuracy@1 70.968%	Accuracy@5 100.000%	
+2025-02-23 18:25:49,938:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:25:49,940:[P:13589]:Rank[0/1] => Epoch[28]: validate end, duration: 6.43s
+2025-02-23 18:25:49,940:[P:13589]:Rank[0/1] => lr: 1.0657372555807193e-05
+2025-02-23 18:25:49,942:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:25:52,318:[P:13589]:Rank[0/1] => Epoch[28]: epoch end, duration : 245.75s
+2025-02-23 18:25:52,318:[P:13589]:Rank[0/1] => Epoch[29]: epoch start
+2025-02-23 18:25:52,319:[P:13589]:Rank[0/1] => Epoch[29]: train start
+2025-02-23 18:25:52,319:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:25:58,603:[P:13589]:Rank[0/1] => Epoch[29][0/38]: Time 6.284s (6.284s)	Speed 2.5 samples/s	Data 0.260s (0.260s)	Loss 1.61216 (1.61216)	Accuracy@1 56.250 (56.250)	Accuracy@5 100.000 (100.000)	
+2025-02-23 18:29:46,737:[P:13589]:Rank[0/1] => Epoch[29]: train end, duration: 234.42s
+2025-02-23 18:29:46,738:[P:13589]:Rank[0/1] => Epoch[29]: validate start
+2025-02-23 18:29:46,738:[P:13589]:Rank[0/1] => switch to eval mode
+2025-02-23 18:29:57,796:[P:13589]:Rank[0/1] => synchronize...
+2025-02-23 18:29:57,796:[P:13589]:Rank[0/1] => TEST:	Loss 0.6787	Error@1 29.032%	Error@5 0.000%	Accuracy@1 70.968%	Accuracy@5 100.000%	
+2025-02-23 18:29:57,797:[P:13589]:Rank[0/1] => switch to train mode
+2025-02-23 18:29:57,798:[P:13589]:Rank[0/1] => Epoch[29]: validate end, duration: 11.06s
+2025-02-23 18:29:57,799:[P:13589]:Rank[0/1] => lr: 1e-05
+2025-02-23 18:29:57,801:[P:13589]:Rank[0/1] => saving checkpoint to OUTPUT/multidim_imagenet/cvt-iq-dim2
+2025-02-23 18:29:58,236:[P:13589]:Rank[0/1] => Epoch[29]: epoch end, duration : 245.92s
+2025-02-23 18:29:58,236:[P:13589]:Rank[0/1] => save model to OUTPUT/multidim_imagenet/cvt-iq-dim2/final_state.pth
+2025-02-23 18:29:58,376:[P:13589]:Rank[0/1] => finish training

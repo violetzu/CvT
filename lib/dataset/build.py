@@ -53,14 +53,20 @@ def _build_imagenet_dataset(cfg, is_train):
 
 def _build_multidim_imagenet_dataset(cfg, is_train):
     """
-    新增：多維度 (dim1..dim6) ImageNet-like 結構。
+    多維度 (dim1..dimN) ImageNet-like 結構。
+    `cfg.DATASET.NUM_DIMS` 控制維度數量。
     """
     transforms = build_transforms(cfg, is_train)
     dataset_name = cfg.DATASET.TRAIN_SET if is_train else cfg.DATASET.TEST_SET
 
     root_path = os.path.join(cfg.DATASET.ROOT, dataset_name)
-    dataset = MultiDimImageDataset(root=root_path, transform=transforms)
+    dataset = MultiDimImageDataset(
+        root=root_path, 
+        transform=transforms, 
+        num_dims=cfg.DATASET.NUM_DIMS  # 讀取設定中的數量
+    )
     return dataset
+
 
 
 def build_dataloader(cfg, is_train=True, distributed=False):
@@ -165,10 +171,11 @@ class MultiDimImageDataset(torch.utils.data.Dataset):
     回傳 shape: [6, C, H, W] 的圖 + label
     """
 
-    def __init__(self, root, transform=None):
+    def __init__(self, root, transform=None, num_dims=6):
         super().__init__()
         self.root = root
         self.transform = transform
+        self.num_dims = num_dims  # 讀取 cfg.DATASET.NUM_DIMS
 
         # 掃描所有 class 資料夾
         self.classes = sorted([
@@ -186,8 +193,9 @@ class MultiDimImageDataset(torch.utils.data.Dataset):
                 d for d in os.listdir(cls_path)
                 if os.path.isdir(os.path.join(cls_path, d))
             ])
-            if len(dim_folders) != 6:
-                logging.warning(f"Class '{cls_name}' under '{root}' doesn't have 6 dim folders. Found: {dim_folders}")
+            if len(dim_folders) != self.num_dims:
+                logging.warning(f"Class '{cls_name}' under '{root}' doesn't have {self.num_dims} dim folders. Found: {dim_folders}")
+                continue  # 跳過這個 class
                 # 你也可以 raise Error 或其它處理
 
             # 取得 dim1 中所有檔案，作為「基準檔名清單」
@@ -195,7 +203,7 @@ class MultiDimImageDataset(torch.utils.data.Dataset):
             dim1_files = sorted(os.listdir(dim1_path))
 
             for fname in dim1_files:
-                # 確認 dim2..dim6 同樣有這個檔名
+                # 確認 dim2..dimN 同樣有這個檔名
                 all_dim_paths = []
                 valid_sample = True
                 for dimf in dim_folders:
@@ -223,11 +231,11 @@ class MultiDimImageDataset(torch.utils.data.Dataset):
             img = Image.open(img_path).convert('RGB')
             if self.transform:
                 img = self.transform(img)  # 這裡應該要產生 shape=(C, H, W)
-            
+
             if not isinstance(img, torch.Tensor):
                 img = T.ToTensor()(img)  # 確保轉為 Tensor 並維持正確 shape
 
             imgs.append(img)
 
-        imgs = torch.stack(imgs, dim=0)  # [6, C, H, W]
+        imgs = torch.stack(imgs, dim=0)  # [num_dims, C, H, W]
         return imgs, label

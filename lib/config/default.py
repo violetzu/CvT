@@ -53,6 +53,7 @@ _C.LOSS.LOSS = 'softmax'
 _C.DATASET = CN()
 _C.DATASET.ROOT = ''
 _C.DATASET.DATASET = 'imagenet'
+_C.DATASET.NUM_DIMS = 6
 _C.DATASET.TRAIN_SET = 'train'
 _C.DATASET.TEST_SET = 'val'
 _C.DATASET.DATA_FORMAT = 'jpg'

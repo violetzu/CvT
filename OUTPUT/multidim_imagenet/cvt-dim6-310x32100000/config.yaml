@@ -51,7 +51,6 @@ DATASET:
   DATASET: multidim_imagenet
   DATA_FORMAT: jpg
   LABELMAP: ''
-  NUM_DIMS: 6
   ROOT: DATASET/agmel/
   SAMPLER: default
   TARGET_SIZE: -1

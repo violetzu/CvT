@@ -493,27 +493,33 @@ class VisionTransformer(nn.Module):
 #    這裡示範一個非常簡單的多頭注意力，將 6 個視圖合併成 1 個
 # -------------------------------------------------
 class MergeAttention(nn.Module):
-    def __init__(self, embed_dim, num_heads=4, num_dims=6):
+    def __init__(self, embed_dim, num_heads=4):
         super().__init__()
-        self.num_dims = num_dims  # 設定維度數量
         self.mha = nn.MultiheadAttention(embed_dim, num_heads)
         self.norm = nn.LayerNorm(embed_dim)
     
     def forward(self, x):
-        # x: [B, num_dims, D]
-        x_tbd = x.transpose(0, 1)    # -> [num_dims, B, D]
-        attn_out, _ = self.mha(x_tbd, x_tbd, x_tbd)  # -> [num_dims, B, D]
+        # x: [B, T, D]，其中 T=6
+        x_tbd = x.transpose(0, 1)    # -> [T, B, D]  (多頭注意力預設是 seq_first)
+        attn_out, _ = self.mha(x_tbd, x_tbd, x_tbd)  # -> [T, B, D]
 
         # 殘差
-        attn_out = attn_out.transpose(0, 1)          # 回到 [B, num_dims, D]
+        attn_out = attn_out.transpose(0, 1)          # 回到 [B, T, D]
         x = x + attn_out
         x = self.norm(x)
 
-        # --- 根據 num_dims 決定如何合併 ---
-        # 做法 1：平均池化
+        # -------------------------------------------------
+        # 這裡關鍵：把 [B, 6, D] -> [B, D]
+        # -------------------------------------------------
+        # 常見做法 1：平均池化
         x = x.mean(dim=1)  # [B, D]
 
+        # 或做法 2：只取 "第一個 token"
+        # x = x[:, 0, :]    # [B, D]
+
         return x  # [B, D]
+
+
 
 # -------------------------------------------------
 # 2) 修改原本的 ConvolutionalVisionTransformer
@@ -526,13 +532,10 @@ class ConvolutionalVisionTransformer(nn.Module):
                  act_layer=nn.GELU,
                  norm_layer=nn.LayerNorm,
                  init='trunc_norm',
-                 spec=None,
-                 num_dims=6):  # 新增 num_dims 參數，預設 6，但應由 cfg 設定
+                 spec=None):
         super().__init__()
         self.num_classes = num_classes
-
         self.num_stages = spec['NUM_STAGES']
-        self.num_dims = num_dims  # 設定維度數量
 
         # 建立多個 stage (跟原本一樣)，但注意每次 stage 的輸入/輸出維度
         for i in range(self.num_stages):
@@ -557,6 +560,7 @@ class ConvolutionalVisionTransformer(nn.Module):
                 'stride_q': spec['STRIDE_Q'][i],
             }
 
+            # 這裡直接使用你給的 VisionTransformer
             stage = VisionTransformer(
                 in_chans=in_chans,
                 init=init,
@@ -577,7 +581,9 @@ class ConvolutionalVisionTransformer(nn.Module):
         nn.init.trunc_normal_(self.head.weight, std=0.02)
 
         # --- 新增：融合注意力模組 ---
-        self.merge_attn = MergeAttention(embed_dim=dim_embed, num_heads=4, num_dims=self.num_dims)
+        # 這裡假設我們最後一層的輸出維度是 dim_embed
+        # 可自行調整多頭數量
+        self.merge_attn = MergeAttention(embed_dim=dim_embed, num_heads=4)
 
     def init_weights(self, pretrained='', pretrained_layers=[], verbose=True):
         if os.path.isfile(pretrained):
@@ -647,11 +653,11 @@ class ConvolutionalVisionTransformer(nn.Module):
     # -------------------------------------------------
     def forward(self, x):
         """
-        x 的 shape = [B, num_dims, 3, H, W]
-        代表 batch 裡有 B 組，每一組有 `num_dims` 張影像，每張是 3xHxW。
+        x 的 shape = [B, 6, 3, H, W]
+        代表 batch 裡有 B 組，每一組有 6 張影像，每張是 3xHxW。
         """
         B, num_views, C, H, W = x.shape
-        assert num_views == self.num_dims, f"此範例假設一次輸入 {self.num_dims} 張圖像！"
+        assert num_views == 6, "此範例假設一次輸入 6 張圖像！"
 
         feats = []
         # 將 6 張圖像拆開來，一張張送進 CVT
@@ -663,11 +669,10 @@ class ConvolutionalVisionTransformer(nn.Module):
             feat = self.forward_features(single_img)  # 得到 [B, D]
             feats.append(feat)
 
-        # 合併為 [B, num_dims, D]
-        # feats = [ (B,D), (B,D), ..., (B,D) ] 共 num_dims 個
-        feats = torch.stack(feats, dim=1)
+        # feats = [ (B,D), (B,D), ..., (B,D) ] 共 6 個
+        feats = torch.stack(feats, dim=1)  # 變成 [B, 6, D]
 
-        # 用 merge_attn 合併 num_dims 個向量 -> [B, D]
+        # 用 merge_attn 合併 6 個向量 -> [B, D]
         merged_feat = self.merge_attn(feats)
 
         # 最終線性分類 => [B, num_classes]
@@ -679,6 +684,7 @@ class ConvolutionalVisionTransformer(nn.Module):
     #    此邏輯和原本單張圖片版類似
     # -------------------------------------------------
     def forward_features(self, x):
+        # x shape: [B, 3, H, W]
         for i in range(self.num_stages):
             x, cls_tokens = getattr(self, f'stage{i}')(x)
 
@@ -689,7 +695,7 @@ class ConvolutionalVisionTransformer(nn.Module):
         else:
             x = rearrange(x, 'b c h w -> b (h w) c')
             x = self.norm(x)
-            x = torch.mean(x, dim=1)
+            x = torch.mean(x, dim=1)  # avg pool
 
         return x
 
@@ -709,8 +715,7 @@ def get_cls_model(config, **kwargs):
         act_layer=QuickGELU,
         norm_layer=partial(LayerNorm, eps=1e-5),
         init=getattr(msvit_spec, 'INIT', 'trunc_norm'),
-        spec=msvit_spec,
-        num_dims=config.DATASET.NUM_DIMS  # **這裡讀取 cfg 設定**
+        spec=msvit_spec
     )
 
     if config.MODEL.INIT_WEIGHTS:
@@ -720,5 +725,5 @@ def get_cls_model(config, **kwargs):
             config.VERBOSE
         )
 
-    return msvit
 
+    return msvit

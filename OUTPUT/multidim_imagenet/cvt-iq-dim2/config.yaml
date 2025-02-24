@@ -51,8 +51,8 @@ DATASET:
   DATASET: multidim_imagenet
   DATA_FORMAT: jpg
   LABELMAP: ''
-  NUM_DIMS: 6
-  ROOT: DATASET/agmel/
+  NUM_DIMS: 2
+  ROOT: DATASET/iqmel/
   SAMPLER: default
   TARGET_SIZE: -1
   TEST_SET: val
@@ -175,13 +175,13 @@ MODEL:
     - 1
 MODEL_SUMMARY: false
 MULTIPROCESSING_DISTRIBUTED: true
-NAME: cvt-dim6-310x321
+NAME: cvt-iq-dim2
 OUTPUT_DIR: OUTPUT/
 PIN_MEMORY: true
 PRINT_FREQ: 500
 RANK: 0
 TEST:
-  BATCH_SIZE_PER_GPU: 8
+  BATCH_SIZE_PER_GPU: 16
   CENTER_CROP: true
   IMAGE_SIZE:
   - 310
@@ -192,12 +192,12 @@ TEST:
   VALID_LABELS: ''
 TRAIN:
   AUTO_RESUME: true
-  BATCH_SIZE_PER_GPU: 8
+  BATCH_SIZE_PER_GPU: 16
   BEGIN_EPOCH: 0
   CHECKPOINT: ''
   CLIP_GRAD_NORM: 0.0
   DETECT_ANOMALY: false
-  END_EPOCH: 10
+  END_EPOCH: 30
   EVAL_BEGIN_EPOCH: 0
   GAMMA1: 0.99
   GAMMA2: 0.0
@@ -209,7 +209,7 @@ TRAIN:
     ARGS:
       cooldown_epochs: 10
       decay_rate: 0.1
-      epochs: 10
+      epochs: 30
       min_lr: 1.0e-05
       sched: cosine
       warmup_epochs: 5

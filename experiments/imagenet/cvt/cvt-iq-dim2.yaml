@@ -54,24 +54,25 @@ CUDNN:
   ENABLED: true
 
 DATASET:
-  DATASET: 'multidim_imagenet'        # 此名稱如需更改可自行修改
+  DATASET: 'multidim_imagenet'   # 此名稱如需更改可自行修改
+  NUM_DIMS: 2
   DATA_FORMAT: 'jpg'
-  ROOT: 'DATASET/agmel/'     # 原本是 'DATASET/imagenet/'，改為 'DATASET/agmel/'
+  ROOT: 'DATASET/iqmel/'     # 原本是 'DATASET/imagenet/'，改為 'DATASET/agmel/'
   TEST_SET: 'val'
   TRAIN_SET: 'train'
 
 TEST:
-  BATCH_SIZE_PER_GPU: 8
+  BATCH_SIZE_PER_GPU: 16
   IMAGE_SIZE: [310, 321]     # 測試時影像大小
   MODEL_FILE: ''
   INTERPOLATION: 3
 
 TRAIN:
-  BATCH_SIZE_PER_GPU: 8     # 原本建議 256, 依資源可自行調整
+  BATCH_SIZE_PER_GPU: 16     # 原本建議 256, 依資源可自行調整
   LR: 0.00025
   IMAGE_SIZE: [310, 321]     # 訓練時影像大小
   BEGIN_EPOCH: 0
-  END_EPOCH: 10               # 依實驗需求可改回 500
+  END_EPOCH: 30               # 依實驗需求可改回 500
   LR_SCHEDULER:
     METHOD: 'timm'
     ARGS:
